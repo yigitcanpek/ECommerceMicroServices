@@ -7,12 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{32
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{D6E84B93-DD8C-4C83-9D94-118978FD9735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Services.Catalog", "Services\Catalog\ECommerce.Services.Catalog\ECommerce.Services.Catalog.csproj", "{D193F9B1-CDEC-4FDA-891E-4D9B4D9AD6E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerce.Services.Catalog", "Services\Catalog\ECommerce.Services.Catalog\ECommerce.Services.Catalog.csproj", "{D193F9B1-CDEC-4FDA-891E-4D9B4D9AD6E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{34D22C76-DACF-4357-A39E-47364CDD4A11}"
 	ProjectSection(SolutionItems) = preProject
 		Ports.txt = Ports.txt
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D1352AB5-01EE-455D-8A05-BEE90F7BABE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Shared", "ECommerce.Shared\ECommerce.Shared.csproj", "{02F084A2-535A-4BD7-B102-DB2DCDFCFF7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 		{D193F9B1-CDEC-4FDA-891E-4D9B4D9AD6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D193F9B1-CDEC-4FDA-891E-4D9B4D9AD6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D193F9B1-CDEC-4FDA-891E-4D9B4D9AD6E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F084A2-535A-4BD7-B102-DB2DCDFCFF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F084A2-535A-4BD7-B102-DB2DCDFCFF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F084A2-535A-4BD7-B102-DB2DCDFCFF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F084A2-535A-4BD7-B102-DB2DCDFCFF7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -31,6 +39,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D6E84B93-DD8C-4C83-9D94-118978FD9735} = {329FB952-0C7B-416C-B5DB-4751BF886350}
 		{D193F9B1-CDEC-4FDA-891E-4D9B4D9AD6E2} = {D6E84B93-DD8C-4C83-9D94-118978FD9735}
+		{02F084A2-535A-4BD7-B102-DB2DCDFCFF7B} = {D1352AB5-01EE-455D-8A05-BEE90F7BABE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2827C4CE-A342-4F06-BDD1-951CCA257F7A}

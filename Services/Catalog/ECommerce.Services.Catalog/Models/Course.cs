@@ -4,7 +4,7 @@ namespace ECommerce.Services.Catalog.Models
 {
     public class Course
     {
-        [BsonNoId]
+        [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
         public string Name { get; set; }
