@@ -1,6 +1,6 @@
 ﻿namespace ECommerce.Services.Catalog.Dtos
 {
-    public class CourseCreateDto
+    internal class CourseCreateDto
     {
 
 

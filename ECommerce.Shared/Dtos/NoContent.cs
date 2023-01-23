@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ECommerce.Shared.Dtos
 {
-    public class NoContentDto
+    public class NoContent
     {
     }
 }
