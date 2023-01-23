@@ -11,7 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ICourseService,CourseService>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
+
 builder.Services.Configure<OptionsPattern>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddSingleton<IDatabaseOptions>(sp =>
 {

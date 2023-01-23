@@ -27,5 +27,9 @@ namespace ECommerce.Services.Catalog.Models
         [BsonIgnore]
         public Category Category { get; set; }
 
+        public Course()
+        {
+            CreatedTime = DateTime.Now;
+        }
     }
 }
