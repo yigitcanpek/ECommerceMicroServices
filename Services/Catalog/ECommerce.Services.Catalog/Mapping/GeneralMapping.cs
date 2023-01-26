@@ -8,8 +8,9 @@ namespace ECommerce.Services.Catalog.Mapping
     {
         public GeneralMapping()
         {
-            CreateMap<Course, CourseDto>().ReverseMap();
-            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Course,CourseDto>().ReverseMap();
+            CreateMap<Category,CategoryDto>().ReverseMap();
+            CreateMap<CategoryDto,Category>().ReverseMap();
             CreateMap<Feature,FeatureDto >().ReverseMap();
 
             CreateMap<Course,CourseCreateDto>().ReverseMap();

@@ -7,9 +7,9 @@ using MongoDB.Driver;
 
 namespace ECommerce.Services.Catalog.Services
 {
-    internal class CategoryService:ICategoryService
+    public class CategoryService:ICategoryService
     {
-        private readonly IMongoCollection<Category> _cateogryCollection;
+        private readonly IMongoCollection<Category> _categoryCollection;
         private readonly IMapper _mapper;
 
         public CategoryService(IMapper mapper,IDatabaseOptions databaseOptions)
@@ -17,24 +17,25 @@ namespace ECommerce.Services.Catalog.Services
             MongoClient client = new MongoClient(databaseOptions.ConnectionString);
             IMongoDatabase database = client.GetDatabase(databaseOptions.DatabaseName);
 
+            _categoryCollection = database.GetCollection<Category>(databaseOptions.CategoryCollectionName);
             _mapper = mapper;
-            _cateogryCollection = database.GetCollection<Category>(databaseOptions.CategoryCollectionName);
-        }
-        public async Task<Response<List<CategoryDto>>> GetAllAsync()
-        {
-            List<Category> categories = await _cateogryCollection.Find(categories => true).ToListAsync();
-            return Response<List<CategoryDto>>.Success(_mapper.Map<List<CategoryDto>>(categories), 200);
         }
 
-        public async Task<Response<CategoryDto>> CreateAsync(Category category)
+        public async Task<Response<List<CategoryDto>>> GetAllAsync()
         {
-             await _cateogryCollection.InsertOneAsync(category);
+            List<Category> categories = await _categoryCollection.Find(categories => true).ToListAsync();
+            return Response<List<CategoryDto>>.Success(_mapper.Map<List<CategoryDto>>(categories), 200);
+        }
+        public async Task<Response<CategoryDto>> CreateAsync(CategoryDto categoryDto)
+        {   
+             Category category = _mapper.Map<Category>(categoryDto);
+             await _categoryCollection.InsertOneAsync(category);
              return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category),200);
 
         }
         public async Task<Response<CategoryDto>> GetByIdAsync (string id)
         {
-            Category category = await _cateogryCollection.Find<Category>(x => x.Id == id).FirstOrDefaultAsync();
+            Category category = await _categoryCollection.Find<Category>(x => x.Id == id).FirstOrDefaultAsync();
 
             if (category==null)
             {

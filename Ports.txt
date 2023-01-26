@@ -1,2 +1,4 @@
 Ports:
 Catalog:5162
+Portainer:9000
+Catalog.MongoDb:27017
