@@ -28,6 +28,7 @@ namespace ECommerce.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalApiAuthentication();
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -48,6 +49,7 @@ namespace ECommerce.IdentityServer
                 options.EmitStaticAudienceClaim = true;
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiResources(Config.ApiResources) //!*!//
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
@@ -79,7 +81,9 @@ namespace ECommerce.IdentityServer
             app.UseStaticFiles();
 
             app.UseRouting();
+            
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
