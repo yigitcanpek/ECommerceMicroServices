@@ -4,6 +4,7 @@
 
 using IdentityServer4;
 using IdentityServer4.Models;
+using System;
 using System.Collections.Generic;
 
 namespace ECommerce.IdentityServer
@@ -23,7 +24,10 @@ namespace ECommerce.IdentityServer
         public static IEnumerable<IdentityResource> IdentityResources =>
                    new IdentityResource[]
                    {
-             
+                        new IdentityResources.Email(),
+                        new IdentityResources.OpenId(), //jwt sub claim
+                        new IdentityResources.Profile(),
+                        new IdentityResource(){Name="role",DisplayName="Roles",Description="Kullanıcı rolleri",UserClaims=new[]{"role" } }
                    };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -42,8 +46,22 @@ namespace ECommerce.IdentityServer
                     ClientName="ECommerceWebMvc",
                     ClientId="WebMvcClient",
                     ClientSecrets={new Secret("secret".Sha512())},
-                    AllowedGrantTypes=GrantTypes.ClientCredentials,
+                    AllowedGrantTypes=GrantTypes.ClientCredentials, //With refresh token
                     AllowedScopes={ "catalog_fullpermission", "photo_stock_fullpermission",IdentityServerConstants.LocalApi.ScopeName }
+                },
+                     new Client
+                {
+                    ClientName="ECommerceWebMvc",
+                    ClientId="WebMvcClientForUser",
+                    AllowOfflineAccess=true,
+                    ClientSecrets={new Secret("secret".Sha512())},
+                    AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
+                    AllowedScopes={IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,IdentityServerConstants.LocalApi.ScopeName/*Refresh tokken*/ },
+                    AccessTokenLifetime=1*60*60,
+                    RefreshTokenExpiration=TokenExpiration.Absolute,
+                    AbsoluteRefreshTokenLifetime=(int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
+                    RefreshTokenUsage=TokenUsage.ReUse
+                        
                 }
             };
     }

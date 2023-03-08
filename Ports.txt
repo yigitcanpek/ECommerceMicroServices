@@ -3,3 +3,5 @@ Catalog:5162
 Portainer:9000
 Catalog.MongoDb:27017
 SqlServer:50415
+IdentityServer:5001
+PhotoStockAPI:5012
