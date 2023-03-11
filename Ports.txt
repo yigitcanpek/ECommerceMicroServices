@@ -2,6 +2,8 @@ Ports:
 Catalog:5162
 Portainer:9000
 Catalog.MongoDb:27017
-SqlServer:50415
+SqlServer:(Due to configurations it has to be checked)
 IdentityServer:5001
 PhotoStockAPI:5012
+BasketAPI:5013
+Redis:6379
