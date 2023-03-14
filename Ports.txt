@@ -1,9 +1,10 @@
 Ports:
 Catalog:5162
 Portainer:9000
-Catalog.MongoDb:27017
+ECommerce.Catalog.MongoDb:27017
 SqlServer:(Due to configurations it has to be checked)
 IdentityServer:5001
 PhotoStockAPI:5012
 BasketAPI:5013
-Redis:6379
+ECommerce.Redis:6379
+ECommerce.Discount:5231

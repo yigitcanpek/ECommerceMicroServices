@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.Authority = builder.Configuration["IdentityServerUrl"];
-    options.Audience = "photo_stock_catalog";//Its coming from IdenttiyServer/Config 
+    options.Audience = "resource_photo_stock";//Its coming from IdenttiyServer/Config 
     options.RequireHttpsMetadata = false;
 });
 
