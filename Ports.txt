@@ -8,3 +8,5 @@ PhotoStockAPI:5012
 BasketAPI:5013
 ECommerce.Redis:6379
 ECommerce.Discount:5231
+Ecommerce.Discount.PostgreSql:5432
+ECommerce.Order.OrderAPI:5015

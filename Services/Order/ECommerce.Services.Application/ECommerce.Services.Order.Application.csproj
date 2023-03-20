@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce.Serivces.Order.Infrastructure\ECommerce.Serivces.Order.Infrastructure.csproj" />
+    <ProjectReference Include="..\ECommerce.Services.Order.Domain\ECommerce.Services.Order.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
