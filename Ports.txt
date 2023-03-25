@@ -10,3 +10,4 @@ ECommerce.Redis:6379
 ECommerce.Discount:5231
 Ecommerce.Discount.PostgreSql:5432
 ECommerce.Order.OrderAPI:5015
+ECommerce.Order.OrderDb:1444
