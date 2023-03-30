@@ -13,3 +13,4 @@ ECommerce.Order.OrderAPI:5015
 ECommerce.Order.OrderDb:1444
 ECommerce.FakePayment.FakePayment:5016
 ECommerce.Gateways.GateWay:5000
+ECommerce.Clients.WEB:5010

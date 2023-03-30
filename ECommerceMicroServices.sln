@@ -55,7 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerce.Services.FakePaym
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GateWays", "GateWays", "{2876927F-3C3C-4344-83FC-93EF9641A6CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.GateWays.GateWayFirst", "ECommerce.GateWays.GateWayFirst\ECommerce.GateWays.GateWayFirst.csproj", "{2EF001B2-1161-4463-8F83-8EB30A39A3CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerce.GateWays.GateWayFirst", "ECommerce.GateWays.GateWayFirst\ECommerce.GateWays.GateWayFirst.csproj", "{2EF001B2-1161-4463-8F83-8EB30A39A3CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{761DED66-4C6E-42F5-A20E-6D1F1A658B3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Clients.WEB", "Clients\ECommerce.Clients.WEB\ECommerce.Clients.WEB.csproj", "{C018ADED-E6F4-43E7-8CA0-E3707C6DCA12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +119,10 @@ Global
 		{2EF001B2-1161-4463-8F83-8EB30A39A3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EF001B2-1161-4463-8F83-8EB30A39A3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EF001B2-1161-4463-8F83-8EB30A39A3CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C018ADED-E6F4-43E7-8CA0-E3707C6DCA12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C018ADED-E6F4-43E7-8CA0-E3707C6DCA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C018ADED-E6F4-43E7-8CA0-E3707C6DCA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C018ADED-E6F4-43E7-8CA0-E3707C6DCA12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +147,7 @@ Global
 		{57DD1832-00BF-4A38-852A-78C7200D4451} = {329FB952-0C7B-416C-B5DB-4751BF886350}
 		{A0AFA043-BBCB-4466-B35E-5329561CCBE3} = {57DD1832-00BF-4A38-852A-78C7200D4451}
 		{2EF001B2-1161-4463-8F83-8EB30A39A3CF} = {2876927F-3C3C-4344-83FC-93EF9641A6CA}
+		{C018ADED-E6F4-43E7-8CA0-E3707C6DCA12} = {761DED66-4C6E-42F5-A20E-6D1F1A658B3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2827C4CE-A342-4F06-BDD1-951CCA257F7A}
