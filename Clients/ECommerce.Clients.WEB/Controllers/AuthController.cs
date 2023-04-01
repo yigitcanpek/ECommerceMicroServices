@@ -1,6 +1,8 @@
 ﻿using ECommerce.Clients.WEB.Models;
 using ECommerce.Clients.WEB.Services.Interfaces;
 using ECommerce.Shared.Dtos;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Clients.WEB.Controllers
@@ -39,6 +41,12 @@ namespace ECommerce.Clients.WEB.Controllers
             return RedirectToAction(nameof(Index), "Home");
 
             
+        }
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);//It's clears to cookie
+            await _identityService.RevokeRefreshToken();
+            return RedirectToAction(nameof(HomeController.Index),"Home");
         }
     }
 }

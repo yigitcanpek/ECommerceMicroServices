@@ -1,11 +1,15 @@
 using ECommerce.Clients.WEB.Handler;
+using ECommerce.Clients.WEB.Handlers;
 using ECommerce.Clients.WEB.Models;
-using ECommerce.Clients.WEB.Services;
+using ECommerce.Clients.WEB.Services.GeneralServices;
+using ECommerce.Clients.WEB.Services.IdentityServices;
 using ECommerce.Clients.WEB.Services.Interfaces;
 using ECommerce.Clients.WEB.Services.UserServices;
+using ECommerce.Shared.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +19,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection("ServiceApiSettings")); //options pattern
 builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection("ClientSettings"));
 
+ServiceApiSettings serviceApiSettings = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
+builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+builder.Services.AddScoped<ClientCredentialTokenHandler>();
+builder.Services.AddAccessTokenManagement();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient<IClientCredentialTokenService, ClientCredentialService>();
 builder.Services.AddHttpClient<IIdentityService, IdentityServices>();
+builder.Services.AddHttpClient<ICatalogService, CatalogService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{serviceApiSettings.GateWayUrl}/{serviceApiSettings.Catalog.path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
@@ -35,6 +50,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 
 var app = builder.Build();
+
 
 
 // Configure the HTTP request pipeline.

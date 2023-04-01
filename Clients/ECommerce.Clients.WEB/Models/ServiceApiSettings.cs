@@ -5,6 +5,11 @@
         public string IdentityUrl { get; set; }
         public string GateWayUrl { get; set; }
         public string PhotoStockUrl { get; set; }
+        public ServiceApi Catalog { get; set; }
+    }
 
+    public class ServiceApi
+    {
+        public string path { get; set; }
     }
 }

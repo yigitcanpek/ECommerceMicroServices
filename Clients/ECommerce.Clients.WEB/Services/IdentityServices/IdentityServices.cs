@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace ECommerce.Clients.WEB.Services
+namespace ECommerce.Clients.WEB.Services.IdentityServices
 {
     public class IdentityServices : IIdentityService
     {
@@ -49,31 +49,31 @@ namespace ECommerce.Clients.WEB.Services
             RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest()
             {
                 ClientId = _clientSetting.WebClientForUser.ClientId,
-                ClientSecret=_clientSetting.WebClientForUser.ClientSecret,
+                ClientSecret = _clientSetting.WebClientForUser.ClientSecret,
                 Address = discoveryEndPoint.TokenEndpoint
             };
 
             TokenResponse token = await _httpclient.RequestRefreshTokenAsync(refreshTokenRequest);
-            
+
             if (token.IsError)
             {
                 return null;
                 //throw new Exception(token.Error);
             }
-            
-            List<AuthenticationToken> authenticationtokens = (new List<AuthenticationToken>()
+
+            List<AuthenticationToken> authenticationtokens = new List<AuthenticationToken>()
             {
                 new AuthenticationToken{Name=OpenIdConnectParameterNames.AccessToken,Value=token.AccessToken},
                 new AuthenticationToken{Name=OpenIdConnectParameterNames.RefreshToken,Value=token.RefreshToken },
                 new AuthenticationToken{Name=OpenIdConnectParameterNames.ExpiresIn,Value=DateTime.Now.AddSeconds(token.ExpiresIn).ToString("o",CultureInfo.InvariantCulture)}
-            });
+            };
 
             AuthenticateResult authenticateResult = await _httpContextAccessor.HttpContext.AuthenticateAsync();
 
             AuthenticationProperties properties = authenticateResult.Properties;
             properties.StoreTokens(authenticationtokens);
 
-            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, authenticateResult.Principal,properties);
+            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, authenticateResult.Principal, properties);
 
             return token;
 
@@ -94,12 +94,13 @@ namespace ECommerce.Clients.WEB.Services
 
             Task<string> refreshToken = _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
 
-            TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest{
+            TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest
+            {
                 ClientId = _clientSetting.WebClientForUser.ClientId,
-                ClientSecret= _clientSetting.WebClientForUser.ClientSecret,
-                Address=discoveryEndPoint.RevocationEndpoint,
-                Token=refreshToken.ToString(),
-                TokenTypeHint="refresh_token"
+                ClientSecret = _clientSetting.WebClientForUser.ClientSecret,
+                Address = discoveryEndPoint.RevocationEndpoint,
+                Token = refreshToken.ToString(),
+                TokenTypeHint = "refresh_token"
             };
 
             await _httpclient.RevokeTokenAsync(tokenRevocationRequest);
@@ -111,7 +112,7 @@ namespace ECommerce.Clients.WEB.Services
             DiscoveryDocumentResponse discoveryEndPoint = await _httpclient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = _serviceApiSettings.IdentityUrl,
-                Policy = new DiscoveryPolicy { RequireHttps= false }
+                Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 
             if (discoveryEndPoint.IsError)
@@ -122,28 +123,29 @@ namespace ECommerce.Clients.WEB.Services
             PasswordTokenRequest passwordTokenRequest = new PasswordTokenRequest
             {
                 ClientId = _clientSetting.WebClientForUser.ClientId,
-                ClientSecret=_clientSetting.WebClientForUser.ClientSecret,
-                UserName=signInInput.Email,
-                Password=signInInput.Password,
-                Address=discoveryEndPoint.TokenEndpoint
+                ClientSecret = _clientSetting.WebClientForUser.ClientSecret,
+                UserName = signInInput.Email,
+                Password = signInInput.Password,
+                Address = discoveryEndPoint.TokenEndpoint
             };
-            
-           TokenResponse token = await _httpclient.RequestPasswordTokenAsync(passwordTokenRequest);
+
+            TokenResponse token = await _httpclient.RequestPasswordTokenAsync(passwordTokenRequest);
 
             if (token.IsError)
             {
                 //throw token.Exception;
                 string responseContent = await token.HttpResponse.Content.ReadAsStringAsync();
 
-                ErrorDto errorDto = JsonSerializer.Deserialize<ErrorDto>(responseContent,new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+                ErrorDto errorDto = JsonSerializer.Deserialize<ErrorDto>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 return Response<bool>.Fail(errorDto.Errors, 400);
             }
 
-            UserInfoRequest userInfoRequest = new UserInfoRequest{
+            UserInfoRequest userInfoRequest = new UserInfoRequest
+            {
                 Token = token.AccessToken,
                 Address = discoveryEndPoint.UserInfoEndpoint
             };
-            
+
             UserInfoResponse userInfo = await _httpclient.GetUserInfoAsync(userInfoRequest);
 
             if (userInfo.IsError)
@@ -152,7 +154,7 @@ namespace ECommerce.Clients.WEB.Services
             }
 
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims,CookieAuthenticationDefaults.AuthenticationScheme,"name","role");
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
 
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             AuthenticationProperties authenticationProperties = new AuthenticationProperties();
@@ -160,7 +162,7 @@ namespace ECommerce.Clients.WEB.Services
             {
                 new AuthenticationToken{Name=OpenIdConnectParameterNames.AccessToken,Value=token.AccessToken},
                 new AuthenticationToken{Name=OpenIdConnectParameterNames.RefreshToken,Value=token.RefreshToken },
-                new AuthenticationToken{Name=OpenIdConnectParameterNames.ExpiresIn,Value=DateTime.Now.AddSeconds(token.ExpiresIn).ToString("o",CultureInfo.InvariantCulture)} 
+                new AuthenticationToken{Name=OpenIdConnectParameterNames.ExpiresIn,Value=DateTime.Now.AddSeconds(token.ExpiresIn).ToString("o",CultureInfo.InvariantCulture)}
             });
 
             authenticationProperties.IsPersistent = signInInput.IsRemember;

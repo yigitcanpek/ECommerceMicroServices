@@ -1,11 +1,7 @@
-﻿using ECommerce.Services.Catalog.Models;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace ECommerce.Services.Catalog.Dtos
+﻿namespace ECommerce.Clients.WEB.Models.CatalogViewModels
 {
-    public class CourseDto
+    public class CourseViewModel
     {
-
         public string Id { get; set; }
         public string Name { get; set; }
 
@@ -18,13 +14,13 @@ namespace ECommerce.Services.Catalog.Dtos
 
 
         //OneToOne Relation
-        public FeatureDto Feature { get; set; }
+        public FeatureViewModel Feature { get; set; }
 
 
         //ManyToOne
 
         public string CategoryId { get; set; }
 
-        public CategoryDto Category { get; set; }
+        public CategoryViewModel Category { get; set; }
     }
 }
