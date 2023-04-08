@@ -1,5 +1,6 @@
 using ECommerce.Clients.WEB.Handler;
 using ECommerce.Clients.WEB.Handlers;
+using ECommerce.Clients.WEB.Helpers;
 using ECommerce.Clients.WEB.Models;
 using ECommerce.Clients.WEB.Services.GeneralServices;
 using ECommerce.Clients.WEB.Services.IdentityServices;
@@ -21,6 +22,8 @@ builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection("Cli
 
 ServiceApiSettings serviceApiSettings = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
+builder.Services.AddSingleton<PhotoHelper>();
+
 builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 builder.Services.AddScoped<ClientCredentialTokenHandler>();
@@ -34,6 +37,10 @@ builder.Services.AddHttpClient<ICatalogService, CatalogService>(opt =>
     opt.BaseAddress = new Uri($"{serviceApiSettings.GateWayUrl}/{serviceApiSettings.Catalog.path}");
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
+builder.Services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{serviceApiSettings.GateWayUrl}/{serviceApiSettings.PhotoStock.path}");
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 {
@@ -42,7 +49,7 @@ builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
 {
-    opt.LoginPath = "Auth/SignIn";
+    opt.LoginPath = "/Auth/SignIn";
     opt.ExpireTimeSpan = TimeSpan.FromDays(60);
     opt.SlidingExpiration = true;
     opt.Cookie.Name = "ecoomercewebcookie";

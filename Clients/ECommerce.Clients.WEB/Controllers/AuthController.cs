@@ -20,7 +20,7 @@ namespace ECommerce.Clients.WEB.Controllers
         {
             return View();
         }
-
+        [HttpPost]
         public async Task<IActionResult> SignIn(SignInInput signInInput)
         {
 

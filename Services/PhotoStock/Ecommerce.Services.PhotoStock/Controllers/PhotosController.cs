@@ -22,7 +22,7 @@ namespace Ecommerce.Services.PhotoStock.Controllers
                     await photo.CopyToAsync(stream,cancellationToken);
                 }
                 //http://www.photostock.api.com/photos/asdada.jpg
-                string returnPath = "photos/" + photo.FileName;
+                string returnPath =  photo.FileName;
 
                 PhotoDto photoDto = new() { Url= returnPath };
 
