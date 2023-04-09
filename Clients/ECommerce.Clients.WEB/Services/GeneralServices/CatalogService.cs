@@ -62,7 +62,7 @@ namespace ECommerce.Clients.WEB.Services.GeneralServices
 
             responseSuccess.Data.ForEach(x =>
             {
-                x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+                x.StockPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
             });
 
             return responseSuccess.Data;
@@ -83,7 +83,7 @@ namespace ECommerce.Clients.WEB.Services.GeneralServices
 
             responseSuccess.Data.ForEach(x =>
             {
-                x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+                x.StockPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
             });
 
             return  responseSuccess.Data;
@@ -101,6 +101,7 @@ namespace ECommerce.Clients.WEB.Services.GeneralServices
                 return null;
             }
 
+            responseSuccess.Data.StockPictureUrl = _photoHelper.GetPhotoStockUrl(responseSuccess.Data.Picture);
             return responseSuccess.Data;
         }
 
