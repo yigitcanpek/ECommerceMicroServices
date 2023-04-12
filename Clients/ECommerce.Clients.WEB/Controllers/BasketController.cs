@@ -1,10 +1,12 @@
 ﻿using ECommerce.Clients.WEB.Models.BaskesViewModels;
 using ECommerce.Clients.WEB.Models.CatalogViewModels;
 using ECommerce.Clients.WEB.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Clients.WEB.Controllers
 {
+    [Authorize]
     public class BasketController : Controller
     {
         private readonly ICatalogService _catalogService;

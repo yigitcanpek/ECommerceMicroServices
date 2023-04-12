@@ -39,6 +39,12 @@ namespace ECommerce.Clients.WEB.Extentions
                 opt.BaseAddress = new Uri(builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>().IdentityUrl);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
+
+            services.AddHttpClient<IDiscountService, DiscountService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GateWayUrl}/{serviceApiSettings.Discount.path}");
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
             {
                 opt.LoginPath = "/Auth/SignIn";
