@@ -1,5 +1,6 @@
 ﻿using ECommerce.Clients.WEB.Models.BaskesViewModels;
 using ECommerce.Clients.WEB.Models.CatalogViewModels;
+using ECommerce.Clients.WEB.Models.DiscountViewModels;
 using ECommerce.Clients.WEB.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,5 +41,22 @@ namespace ECommerce.Clients.WEB.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> ApplyDiscount(DiscountApplyInput discountApplyInput)
+        {
+            bool discountStatus = await _basketService.ApplyDiscount(discountApplyInput.Code);
+
+            TempData["discountStatus"] = discountStatus;
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> CancelAppliedDiscount()
+        {
+            await _basketService.CancelApplyDiscount();
+            return RedirectToAction(nameof(Index));
+        }
+            
+
+            
     }
 }
