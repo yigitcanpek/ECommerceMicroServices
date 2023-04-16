@@ -5,10 +5,12 @@
         public string IdentityUrl { get; set; }
         public string GateWayUrl { get; set; }
         public string PhotoStockUrl { get; set; }
+        public ServiceApi Payment { get; set; }
         public ServiceApi Catalog { get; set; }
         public ServiceApi PhotoStock { get; set; }
         public ServiceApi Basket { get; set; }
         public ServiceApi Discount { get; set; }
+        public ServiceApi Order { get; set; }
     }
 
     

@@ -41,7 +41,7 @@ namespace ECommerce.Clients.WEB.Services.GeneralServices
 
             BasketViewModel basket = await Get();
 
-            if (basket == null || basket.DiscountCode == null)
+            if (basket == null)
             {
                 return false;
             }
@@ -53,8 +53,7 @@ namespace ECommerce.Clients.WEB.Services.GeneralServices
                 return false;
             }
 
-            basket.DiscountRate = hasDiscount.Rate;
-            basket.DiscountCode = hasDiscount.Code;
+            basket.ApplyDiscount(hasDiscount.Code, hasDiscount.Rate);
             await SaveOrUpdate(basket);
             return true;
 
@@ -67,7 +66,7 @@ namespace ECommerce.Clients.WEB.Services.GeneralServices
             {
                 return false;
             }
-            basket.DiscountCode = null;
+            basket.Cancel();
             await SaveOrUpdate(basket);
             return true;
         }

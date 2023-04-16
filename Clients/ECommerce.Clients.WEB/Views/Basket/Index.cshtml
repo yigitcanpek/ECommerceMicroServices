@@ -43,23 +43,31 @@
                     </table>
 
 
-                    <form asp-controller="Basket" asp-action="CancelAppliedDiscount">
+                        <form asp-controller="Basket" asp-action="CancelAppliedDiscount">
                         @if (Model.HasDiscount)
                         {
                             <div class="alert alert-success">
                                 "@Model.DiscountCode" indirim kodu uygulandı
+                                <a asp-controller="Basket" asp-action="CancelAppliedDiscount">İptal et</a>
                             </div>
+                           
                         }
+                        
+                        <div class="input-group mb-3">
+
+                            <input type="text" name="DiscountApplyInput.Code" class="form-control"/>
+                            
+                            <button class="btn btn-outline-secondary" type="submit">Uygula</button>
+                            <div asp-validation-summary="All"></div>
+                        </div>
                         @if (TempData["discountStatus"]!= null && (bool)TempData["discountStatus"]==false)
                         {
                             <div class="text-danger"> İndirim kodu geçersiz</div>
                         }
-                        <div class="input-group mb-3">
-                            <input type="text" name="DiscountApplyInput.Code" class="form-control"/>
-                            <div asp-validation-summary="All"></div>
-                            <button class="btn btn-outline-secondary" type="submit">Uygula</button>
-                        </div>
-
+                        @if (TempData["discountError"] != null)
+                        {
+                                                <div class="text-danger">@TempData["discountError"] </div>
+                        }
                     </form>
                 }
 
@@ -71,5 +79,4 @@
         </div>
     </div>
 </div>
-<h1>Index</h1>
 
