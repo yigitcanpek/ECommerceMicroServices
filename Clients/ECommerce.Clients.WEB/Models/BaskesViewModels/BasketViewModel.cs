@@ -29,6 +29,8 @@
             set { _basketItems = value; }
         }
 
+
+
         public decimal TotalPrice { get => _basketItems.Sum(x => x.GetCurrentPrice); }
 
         public bool HasDiscount { get=> !string.IsNullOrEmpty(DiscountCode) && DiscountRate.HasValue; }

@@ -10,7 +10,7 @@ namespace ECommerce.Clients.WEB.Services.Interfaces
         //Asynchron (To the rabbitmq)
         Task SuspendOrderAsync(CheckOutViewModel checkOutViewModel);
 
-        Task<OrderViewModel> GetOrder();
+        Task<List<OrderViewModel>> GetOrder();
             
     }
 }
